@@ -20,10 +20,8 @@ int check_cycle(listint_t *list)
 	head = list;
 	current = head->next;
 
-	printf("%d\n", head->n);
-	while (current != NULL)
+	while (current != NULL && current->next != NULL && current->next->next != NULL)
 	{
-		printf("%d\n", current->n);
 		if (current == head)
 		{
 			return (1);
