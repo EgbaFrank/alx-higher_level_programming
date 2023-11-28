@@ -12,21 +12,21 @@
 
 int check_cycle(listint_t *list)
 {
-	listint_t *head, *current;
+	listint_t *head, *cur;
 
 	if (list == NULL || list->next == NULL)
 		return (0);
 
 	head = list;
-	current = head->next;
+	cur = head->next;
 
-	while (current != NULL && current->next != NULL && current->next->next != NULL)
+	while (cur != NULL && cur->next != NULL && cur->next->next != NULL)
 	{
-		if (current == head)
+		if (cur == head)
 		{
 			return (1);
 		}
-		current = current->next;
+		cur = cur->next;
 		head = head->next->next;
 	}
 	return (0);
