@@ -12,15 +12,18 @@ if __name__ == "__main__":
     operator = sys.argv[2]
     b = int(sys.argv[3])
 
-    match operator:
-        case '+':
-            print("{} + {} = {}".format(a, b, cal.add(a, b)))
-        case '-':
-            print("{} - {} = {}".format(a, b, cal.sub(a, b)))
-        case '*':
-            print("{} * {} = {}".format(a, b, cal.mul(a, b)))
-        case '/':
-            print("{} / {} = {}".format(a, b, cal.div(a, b)))
-        case _:
-            print("Unknown operator. Available operators: +, -, * and /")
-            sys.exit(1)
+    if operator == '+':
+        print("{} + {} = {}".format(a, b, cal.add(a, b)))
+
+    elif operator == '-':
+        print("{} - {} = {}".format(a, b, cal.sub(a, b)))
+
+    elif operator == '*':
+        print("{} * {} = {}".format(a, b, cal.mul(a, b)))
+
+    elif operator == '/':
+        print("{} / {} = {}".format(a, b, cal.div(a, b)))
+
+    else:
+        print("Unknown operator. Available operators: +, -, * and /")
+        sys.exit(1)
