@@ -3,7 +3,7 @@ def add_tuple(tuple_a=(), tuple_b=()):
     # calculate tuple lenght
     a_len = len(tuple_a)
     b_len = len(tuple_b)
-    
+
     # checks if tuple_b lenght is less than 2
     if a_len == 0:
         tuple_a = (0, 0)
