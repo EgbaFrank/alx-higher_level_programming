@@ -33,7 +33,7 @@ int is_palindrome(listint_t **head)
 	start = *head;
 
 	/* traverse and compare start and end nodes */
-	for (i = 1; i < (len / 2); ++i)
+	for (i = 1; i <= (len / 2); ++i)
 	{
 		end = start;
 		end_idx = i;
