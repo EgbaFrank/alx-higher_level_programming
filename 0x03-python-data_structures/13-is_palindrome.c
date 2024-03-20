@@ -13,6 +13,7 @@
 int is_palindrome(listint_t **head)
 {
 	listint_t *fast = NULL, *slow = NULL, *mid = NULL, *prv = NULL, *nxt = NULL;
+	listint_t *tmp1 = NULL, *tmp2 = NULL;
 
 	/* Checks if list exists or is empty */
 	if (head == NULL)
@@ -42,7 +43,8 @@ int is_palindrome(listint_t **head)
 	/* Move slow back from NULL */
 	slow = prv;
 	/* Compare values of both list halves */
-	listint_t *tmp1 = *head, *tmp2 = slow;
+	tmp1 = *head;
+	tmp2 = slow;
 
 	while (tmp1 != mid && tmp2 != NULL)
 	{
