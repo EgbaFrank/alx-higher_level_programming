@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stddef.h>
 
+
 /**
  * is_palindrome - checks if a linked list is palindrome
  * @head: list's head
@@ -12,44 +13,42 @@
 
 int is_palindrome(listint_t **head)
 {
-	listint_t *fast = NULL, *slow = NULL, *mid = NULL, *prv = NULL, *nxt = NULL;
-
-	/* Checks if list exists or is empty */
+	listint_t *start = NULL, *end = NULL;
+	int len = 0, i, end_idx = 1;
+	/* Check if linked list is NULL or empty */
 	if (head == NULL)
 		return (0);
 
-	else if (*head == NULL)
+	if (*head == NULL)
 		return (1);
+	/* traverse list to determine lenght */
+	start = *head;
 
-	/* Traverse the list to find mid point */
-	fast = slow = *head;
-
-	while (fast->next != NULL && fast->next->next != NULL)
+	while (start != NULL)
 	{
-		fast = fast->next->next;
-		slow = slow->next;
+		++len;
+		start = start->next;
 	}
-	mid = slow;
 
-	/* Reverse second half of list */
-	while (slow != NULL)
-	{
-		nxt = slow->next;
-		slow->next = prv;
-		prv = slow;
-		slow = nxt;
-	}
-	/* Move slow back from NULL */
-	slow = prv;
-	/* Compare values of both list halves */
-	listint_t *tmp1 = *head, *tmp2 = slow;
+	start = *head;
 
-	while (tmp1 != mid && tmp2 != NULL)
+	/* traverse and compare start and end nodes */
+	for (i = 1; i <= (len / 2); ++i)
 	{
-		if (tmp1->n != tmp2->n)
+		end = start;
+		end_idx = i;
+
+		while (end != NULL && end_idx <= (len - i))
+		{
+			end = end->next;
+			++end_idx;
+		}
+
+		if (start->n != end->n)
 			return (0);
-		tmp1 = tmp1->next;
-		tmp2 = tmp2->next;
+		start = start->next;
 	}
+
+	/* list is palindromic */
 	return (1);
 }
