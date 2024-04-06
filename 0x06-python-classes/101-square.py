@@ -120,5 +120,8 @@ class Square:
         """
         Calls print if object is printed
         """
+        if self.__size == 0:
+            return ''
+
         self.my_print()
         return ''
