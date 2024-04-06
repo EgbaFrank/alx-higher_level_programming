@@ -102,11 +102,12 @@ class Square:
         of entered size,
         or a blank line if size is 0
         """
+        if self.__size == 0:
+            print()
+            return
         a, b = self.__position
         for i in range(b):
             print()
         for i in range(self.__size):
             print(" "*a, end='')
             print("#"*self.__size)
-        if self.__size == 0:
-            print()
