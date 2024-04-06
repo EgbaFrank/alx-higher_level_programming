@@ -110,7 +110,10 @@ class Square:
             print()
         for i in range(self.__size):
             print(" "*a, end='')
-            print("#"*self.__size)
+            print("#"*self.__size, end='')
+
+            if i < self.__size - 1:
+                print()
 
 
     def __str__(self):
