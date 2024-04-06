@@ -25,8 +25,8 @@ class Square:
             position[0] = x, the horizonatal position
             position[1] = y, the vertical position
         """
-        self.__size = size
-        self.__position = position
+        self.size = size
+        self.position = position
 
     @property
     def size(self):
