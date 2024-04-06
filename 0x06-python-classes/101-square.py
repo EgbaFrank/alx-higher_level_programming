@@ -105,16 +105,16 @@ class Square:
         if self.__size == 0:
             print()
             return
-        a, b = self.__position
-        for i in range(b):
-            print()
-        for i in range(self.__size):
-            print(" "*a, end='')
-            print("#"*self.__size, end='')
-
-            if i < self.__size - 1:
+        else:
+            a, b = self.__position
+            for i in range(b):
                 print()
+            for i in range(self.__size):
+                print(" "*a, end='')
+                print("#"*self.__size, end='')
 
+                if i < self.__size - 1:
+                    print()
 
     def __str__(self):
         """
