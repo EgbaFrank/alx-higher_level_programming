@@ -44,9 +44,9 @@ class Rectangle:
         """
         if self.__width != 0 and self.__height != 0:
             for i in range(self.__height):
-                print(self.print_symbol, end='')
+                print(self.print_symbol*self.__width, end='')
 
-            if i < self.__height - 1:
+                if i < self.__height - 1:
                 print()
 
         return ""
