@@ -23,8 +23,8 @@ class Rectangle:
         Returns:
             New rectangle object
         """
-        self.__width = width
-        self.__height = height
+        self.width = width
+        self.height = height
 
     @property
     def width(self):
@@ -46,6 +46,7 @@ class Rectangle:
 
         Raises:
             TypeError: if value is not an integer
+
             ValueError: if value is negative
         """
         if not isinstance(value, int):
@@ -74,6 +75,7 @@ class Rectangle:
 
         Raises:
             TypeError: if value is not an integer
+
             ValueError: if value is negative
         """
         if not isinstance(value, int):
