@@ -25,8 +25,8 @@ class Rectangle:
         Returns:
             New rectangle object
         """
-        self.__width = width
-        self.__height = height
+        self.width = width
+        self.height = height
         type(self).number_of_instances += 1
 
     def __del__(self):
