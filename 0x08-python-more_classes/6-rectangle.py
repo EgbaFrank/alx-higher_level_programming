@@ -41,14 +41,11 @@ class Rectangle:
         Prints a rectangle of specified size
         or an empty string if any size is 0
         """
+        string = ''
         if self.__width != 0 and self.__height != 0:
-            for i in range(self.__height):
-                print(self.print_symbol, end='')
+            string = '\n'.join(['#' * self.__width] * self.__height)
 
-            if i < self.__height - 1:
-                print()
-
-        return ""
+        return string
 
     def __repr__(self):
         """

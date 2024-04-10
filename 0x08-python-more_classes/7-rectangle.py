@@ -32,7 +32,7 @@ class Rectangle:
 
     def __del__(self):
         """
-        Prints message when an instance is deleted
+        Prints a message when an instance is deleted
         """
         print("Bye rectangle...")
         type(self).number_of_instances -= 1
@@ -41,15 +41,16 @@ class Rectangle:
         """
         Prints a rectangle of specified size
         or an empty string if any size is 0
+
+        Returns:
+            str: string representation of the rectangle object
         """
+        string = ''
         if self.__width != 0 and self.__height != 0:
-            for i in range(self.__height):
-                print(self.print_symbol*self.__width, end='')
+            row = str(self.print_symbol) * self.__width
+            string = '\n'.join([row] * self.__height)
 
-                if i < self.__height - 1:
-                print()
-
-        return ""
+        return string
 
     def __repr__(self):
         """
