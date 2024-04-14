@@ -1,7 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """
 This module contains a ``text_indentation`` function
 """
+
 
 def text_indentation(text):
     """
@@ -26,7 +27,7 @@ def text_indentation(text):
 
     # Checks for punctuations
         if char in ".:?":
-            result.append(sentence.strip()) 
+            result.append(sentence.strip())
             sentence = ''
 
     # Print any remaining part of the text (if it doesn't end with punctuation)

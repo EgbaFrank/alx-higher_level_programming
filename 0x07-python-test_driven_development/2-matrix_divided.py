@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """
 This module contains a matrix divide function
 """
@@ -30,7 +30,7 @@ def matrix_divided(matrix, div):
         flag = 1
     if flag == 1:
         raise TypeError("matrix must be a matrix "
-                "(list of lists) of integers/floats")
+                        "(list of lists) of integers/floats")
 
     if not isinstance(div, (int, float)):
         raise TypeError("div must be a number")

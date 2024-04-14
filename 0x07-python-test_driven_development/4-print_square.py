@@ -3,6 +3,7 @@
 This module contains a ``print_square`` function
 """
 
+
 def print_square(size):
     """
     ``print_square`` prints a square of specified size

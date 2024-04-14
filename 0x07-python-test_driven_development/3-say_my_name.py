@@ -5,12 +5,13 @@ This module prints contains a say_my_name function
 
 
 def say_my_name(first_name, last_name=""):
-    """ 
+    """
     ``say_my_name()`` prints the name inputted.
-        
+
     Args:
         first_name (str): first name of the individual.
-        last_name (str): last name of the individual. Defaults to an empty string.
+        last_name (str): last name of the individual.
+                        Defaults to an empty string.
 
     Raises:
         TypeError: if first_name is not a string.
