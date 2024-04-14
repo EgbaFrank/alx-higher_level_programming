@@ -1,0 +1,49 @@
+==========================================
+Test module for the `say my name` function
+==========================================
+
+This module contains doctests to verify the functionality of the `say_my_name` function.
+
+The ``say_my_name()`` prints the inputted name
+----------------------------------------------
+
+Import the function:
+	>>> say_my_name = __import__("3-say_my_name").say_my_name
+
+Check for docstrings:
+	>>> Mod_docstr_len = len(__import__("3-say_my_name").__doc__)
+	>>> func_docstr_len = len(__import__("3-say_my_name").say_my_name.__doc__)
+	>>> Mod_docstr_len > 1
+	True
+	>>> func_docstr_len > 1
+	True
+
+Run success cases:
+	- Test the function with both first and last names:
+	>>> say_my_name("Test", "Case")
+	My name is Test Case
+
+	- Test the function with only the first name:
+	>>> say_my_name("Test")
+	My name is Test 
+
+Run Error cases:
+	- Invalid input types:
+
+	>>> say_my_name(98, "Case")
+	Traceback (most recent call last):
+	TypeError: first_name must be a string
+
+	>>> say_my_name("Test", 98)
+	Traceback (most recent call last):
+	TypeError: last_name must be a string
+
+	- Invalid argument count:
+
+	>>> say_my_name() #doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: say_my_name() missing 1 required positional argument:...
+
+	>>> say_my_name("Test", "Case", "Check") #doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: say_my_name() takes from 1 to 2 positional arguments but...

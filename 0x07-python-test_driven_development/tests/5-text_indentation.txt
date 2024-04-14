@@ -1,0 +1,35 @@
+========================================
+Test module for the ``text_indentation``
+========================================
+
+``text_indentation`` prints a text with 2 new lines after: ['.' '?' and ':']
+____________________________________________________________________________
+
+
+Import the module:
+	>>> text_indentation = __import__('5-text_indentation').text_indentation
+	
+
+Check for docstrings:
+	>>> mod_docstr_len = len(__import__('5-text_indentation').__doc__)
+	>>> func_docstr_len = len(__import__('5-text_indentation').text_indentation.__doc__)
+	>>> mod_docstr_len > 1
+	True
+	>>> func_docstr_len > 1
+	True
+
+Run success checks:
+	>>> text_indentation("""Lorem ipsum: dolor sit amet? consectetur adipiscing elit. Test this string""")
+	Lorem ipsum:
+	<BLANKLINE>
+	dolor sit amet?
+	<BLANKLINE>
+	consectetur adipiscing elit.
+	<BLANKLINE>
+	Test this string
+
+Run error checks:
+	- Validate argument type:
+	>>> text_indentation(75)
+	Traceback (most recent call last):
+	TypeError: text must be a string

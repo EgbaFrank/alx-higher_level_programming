@@ -1,0 +1,50 @@
+================================
+Test module for ``print_square``
+================================
+
+
+``print_square`` prints a square with '#'
+_________________________________________
+
+Import the module:
+	>>> print_square = __import__("4-print_square").print_square
+
+Check for docstring:
+	>>> mod_docstr_len = len(__import__("4-print_square").__doc__)
+	>>> func_docstr_len = len(__import__("4-print_square").print_square.__doc__)
+	>>> mod_docstr_len > 1
+	True
+	>>> func_docstr_len > 1
+	True
+
+Run success checks:
+	>>> print_square(2)
+	##
+	##
+	>>> print_square(0)
+	<BLANKLINE>
+
+Run error checks:
+
+	- Validate argument count:
+	>>> print_square() #doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: print_square() missing 1 required positional argument...
+
+	>>> print_square(2, 4) #doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: print_square() takes 1 positional argument but...
+
+	- Validate argument type:
+	>>> print_square("Test")
+	Traceback (most recent call last):
+	TypeError: size must be an integer
+
+	>>> print_square(1.2)
+	Traceback (most recent call last):
+	TypeError: size must be an integer
+
+	- Validate negatives:
+	>>> print_square(-2)
+	Traceback (most recent call last):
+	ValueError: size must be >= 0

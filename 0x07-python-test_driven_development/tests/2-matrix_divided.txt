@@ -1,0 +1,71 @@
+==============================================
+This is a module test for ``matrix_divided()``
+==============================================
+
+Importing the function and checking for docstring:
+	>>> matrix_divided = __import__("2-matrix_divided").matrix_divided
+	>>> M = __import__("2-matrix_divided").__doc__
+	>>> len(M) > 1
+	True
+
+	>>> f = __import__("2-matrix_divided").matrix_divided.__doc__
+	>>> len(f) > 1
+	True
+
+Success Cases:
+	>>> lst = [[2, 4.8412, 4], [8, 12, 6.2]]
+	>>> new = matrix_divided(lst, 2)
+	>>> print(new)
+	[[1.0, 2.42, 2.0], [4.0, 6.0, 3.1]]
+
+	>>> lst = [[], []]
+	>>> new = matrix_divided(lst, 2)
+	>>> print(new)
+	[[], []]
+
+Error Cases:
+	Type check:
+	>>> lst = [[2, 4.8412, 4], [8, 12, 6.2, 76]]
+	>>> new = matrix_divided(lst, 2)
+	Traceback (most recent call last):
+	TypeError: Each row of the matrix must have the same size
+
+	>>> lst = [[2, 4.8412, 4], [8, 12, 6.2]]
+	>>> new = matrix_divided(lst, "Test")
+	Traceback (most recent call last):
+	TypeError: div must be a number
+
+	>>> lst = "Test"
+	>>> new = matrix_divided(lst, 2)
+	Traceback (most recent call last):
+	TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+	>>> lst = [6, 8, 14]
+	>>> new = matrix_divided(lst, 2)
+	Traceback (most recent call last):
+	TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+	Division by zero:
+	>>> lst = [[2, 4.8412, 4], [8, 12, 6.2]]
+	>>> new = matrix_divided(lst, 0)
+	Traceback (most recent call last):
+	ZeroDivisionError: division by zero
+
+	Result check:
+	>>> lst = [[2, 4.8412, 4], [8, 12, 6.2]]
+	>>> new = matrix_divided(lst, 2)
+	>>> isinstance(new, list) and all(isinstance(sublist, list) for sublist in new)
+	True
+
+	>>> lst = [[2, 4.8412, 4], [8, 12, 6.2]]
+	>>> new = matrix_divided(lst, 2)
+	>>> all(isinstance(i, (int, float)) for sub in new for i in sub)
+	True
+
+	>>> matrix_divided() #doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: matrix_divided() missing 2 required positional arguments...
+
+	>>> matrix_divided([[3], [6]], 4, 4) #doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: matrix_divided() takes 2 positional arguments but...

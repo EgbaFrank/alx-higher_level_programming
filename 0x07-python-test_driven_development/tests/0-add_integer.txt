@@ -1,0 +1,49 @@
+=========================================
+This module tests an ``add_integer`` function
+=========================================
+
+
+Importing the module:
+	>>> add_integer = __import__("0-add_integer").add_integer
+
+Checking for docstrings in module and function:
+	>>> M = __import__("0-add_integer").__doc__
+	>>> len(M) > 1
+	True
+
+	>>> f = __import__("0-add_integer").add_integer.__doc__
+	>>> len(f) > 1
+	True
+
+Validating arguments and success cases:
+	>>> add_integer(8, 7)
+	15
+
+	>>> add_integer(-1)
+	97
+
+	>>> add_integer(0)
+	98
+
+	>>> add_integer(5.5, 5)
+	10
+
+	>>> add_integer(2)
+	100
+
+Checking edgecases and errors:
+	>>> add_integer("test", 76)
+	Traceback (most recent call last):
+	TypeError: a must be an integer
+
+	>>> add_integer(87, "test")
+	Traceback (most recent call last):
+	TypeError: b must be an integer
+
+	>>> add_integer()
+	Traceback (most recent call last):
+	TypeError: add_integer() missing 1 required positional argument: 'a'
+
+	>>> add_integer(1, 4, 4) #doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: add_integer() takes from 1 to 2 positional arguments but...
