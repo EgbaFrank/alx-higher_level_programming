@@ -22,7 +22,6 @@ Run success checks:
 	##
 	##
 	>>> print_square(0)
-	<BLANKLINE>
 
 Run error checks:
 
