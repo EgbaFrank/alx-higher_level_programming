@@ -1,0 +1,56 @@
+==========================================
+Test module for the ``BaseGeometry`` class
+==========================================
+
+
+The ``BaseGeometry`` class defines he base class for all shapes
+_______________________________________________________________
+
+Importing Class:
+	>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
+Checking Docstring:
+	>>> Mod_docstr_len = len(__import__('7-base_geometry').__doc__)
+	>>> Cls_docstr_len = len(__import__('7-base_geometry').BaseGeometry.__doc__)
+	>>> meth_docstr_len = len(__import__('7-base_geometry').BaseGeometry.integer_validator.__doc__)
+	>>> Mod_docstr_len > 1
+	True
+	>>> Cls_docstr_len > 1
+	True
+	>>> meth_docstr_len > 1
+	True
+
+Initializing class instance:
+	>>> bg = BaseGeometry()
+
+Running success checks:
+	>>> bg.integer_validator("my_int", 12)
+
+	>>> bg.integer_validator("width", 89)
+
+Running error checks:
+	>>> bg.area()
+	Traceback (most recent call last):
+	Exception: area() is not implemented
+
+	>>> bg.integer_validator("name") #doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: BaseGeometry.integer_validator() missing 1 required...
+
+	>>> bg.integer_validator("name", 2, "test") #doctest: +ELLIPSIS
+	Traceback (most recent call last):
+	TypeError: BaseGeometry.integer_validator() takes...
+
+	Type Error:
+	>>> bg.integer_validator("name", "John")
+	Traceback (most recent call last):
+	TypeError: name must be an integer
+
+	Value Error:
+	>>> bg.integer_validator("age", 0)
+	Traceback (most recent call last):
+	ValueError: age must be greater than 0
+
+	>>> bg.integer_validator("distance", -4)
+	Traceback (most recent call last):
+	ValueError: distance must be greater than 0

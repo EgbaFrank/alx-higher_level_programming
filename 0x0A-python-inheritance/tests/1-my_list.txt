@@ -1,0 +1,42 @@
+================================
+Test module for ``MyList`` class
+================================
+
+
+``Mylist` inherits from list and possess all its attributes
+___________________________________________________________
+
+
+Importing the class and function:
+	>>> MyList = __import__('1-my_list').MyList
+
+Checking for docstrings:
+	>>> Mod_docstr_len = len(__import__('1-my_list').__doc__)
+	>>> Cls_docstr_len = len(__import__('1-my_list').MyList.__doc__)
+	>>> func_docstr_len = len(__import__('1-my_list').MyList.print_sorted.__doc__)
+	>>> Mod_docstr_len > 1
+	True
+	>>> Cls_docstr_len > 1
+	True
+	>>> func_docstr_len > 1
+	True
+
+Initializing class object:
+	>>> my_list = MyList()
+
+Running requirement tests:
+	>>> issubclass(my_list.__class__, list)
+	True
+
+Running success case:
+	>>> my_list.append(1)
+	>>> my_list.append(4)
+	>>> my_list.append(2)
+	>>> my_list.append(3)
+	>>> my_list.append(5)
+	>>> print(my_list)
+	[1, 4, 2, 3, 5]
+	>>> my_list.print_sorted()
+	[1, 2, 3, 4, 5]
+	>>> print(my_list)
+	[1, 4, 2, 3, 5]
