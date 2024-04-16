@@ -16,11 +16,9 @@ def load_from_json_file(filename):
         with open(filename, encoding='utf-8') as file:
             if file.read().strip() == '':
                 return []
-
             else:
                 file.seek(0)
                 return json.load(file)
 
     except FileNotFoundError:
         return []
-
