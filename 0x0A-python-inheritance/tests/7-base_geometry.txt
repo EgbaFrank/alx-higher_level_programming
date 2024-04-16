@@ -45,7 +45,7 @@ Running error checks:
 	Argument Counts:
 		>>> bg.area("Test")
 		Traceback (most recent call last):
-		TypeError: area() takes 1 positional arguments but 2 were given
+		TypeError: area() takes 1 positional argument but 2 were given
 
 		>>> bg.integer_validator() #doctest: +ELLIPSIS
 		Traceback (most recent call last):
