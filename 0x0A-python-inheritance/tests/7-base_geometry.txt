@@ -7,50 +7,108 @@ The ``BaseGeometry`` class defines he base class for all shapes
 _______________________________________________________________
 
 Importing Class:
+----------------
 	>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
 Checking Docstring:
+-------------------
 	>>> Mod_docstr_len = len(__import__('7-base_geometry').__doc__)
 	>>> Cls_docstr_len = len(__import__('7-base_geometry').BaseGeometry.__doc__)
 	>>> meth_docstr_len = len(__import__('7-base_geometry').BaseGeometry.integer_validator.__doc__)
+	>>> meth_docstr_len2 = len(__import__("7-base_geometry").BaseGeometry.area.__doc__)
 	>>> Mod_docstr_len > 1
 	True
 	>>> Cls_docstr_len > 1
 	True
 	>>> meth_docstr_len > 1
 	True
+	>>> meth_docstr_len2 > 1
+	True
 
 Initializing class instance:
+----------------------------
 	>>> bg = BaseGeometry()
 
 Running success checks:
+-----------------------
 	>>> bg.integer_validator("my_int", 12)
 
 	>>> bg.integer_validator("width", 89)
 
+	Raises:
+		>>> bg.area()
+		Traceback (most recent call last):
+		Exception: area() is not implemented
+
 Running error checks:
-	>>> bg.area()
-	Traceback (most recent call last):
-	Exception: area() is not implemented
+---------------------
+	Argument Counts:
+		>>> bg.area("Test")
+		Traceback (most recent call last):
+		TypeError: area() takes 1 positional arguments but 2 were given
 
-	>>> bg.integer_validator("name") #doctest: +ELLIPSIS
-	Traceback (most recent call last):
-	TypeError: BaseGeometry.integer_validator() missing 1 required...
+		>>> bg.integer_validator() #doctest: +ELLIPSIS
+		Traceback (most recent call last):
+		TypeError: integer_validator() missing 2 required positional arguments...
 
-	>>> bg.integer_validator("name", 2, "test") #doctest: +ELLIPSIS
-	Traceback (most recent call last):
-	TypeError: BaseGeometry.integer_validator() takes...
+		>>> bg.integer_validator("Name") #doctest: +ELLIPSIS
+		Traceback (most recent call last):
+		TypeError: integer_validator() missing 1 required positional argument...
 
-	Type Error:
-	>>> bg.integer_validator("name", "John")
-	Traceback (most recent call last):
-	TypeError: name must be an integer
+		>>> bg.integer_validator("Name", 2, "test")
+		Traceback (most recent call last):
+		TypeError: integer_validator() takes 3 positional arguments but 4 were given
 
-	Value Error:
-	>>> bg.integer_validator("age", 0)
-	Traceback (most recent call last):
-	ValueError: age must be greater than 0
+	Argument Type:
 
-	>>> bg.integer_validator("distance", -4)
-	Traceback (most recent call last):
-	ValueError: distance must be greater than 0
+		Integer check:
+
+		>>> bg.integer_validator("Test", 0)
+		Traceback (most recent call last):
+		ValueError: Test must be greater than 0
+
+		>>> bg.integer_validator("Test", -4)
+		Traceback (most recent call last):
+		ValueError: Test must be greater than 0
+
+		String check:
+
+		>>> bg.integer_validator("Test", "T")
+		Traceback (most recent call last):
+		TypeError: Test must be an integer
+
+		Float check:
+
+		>>> bg.integer_validator("Test", 8.4)
+		Traceback (most recent call last):
+		TypeError: Test must be an integer
+
+		Tuple check:
+
+		>>> bg.integer_validator("Test", (4, 6))
+		Traceback (most recent call last):
+		TypeError: Test must be an integer
+
+		Dict check:
+
+		>>> bg.integer_validator("Test", {"N": 1})
+		Traceback (most recent call last):
+		TypeError: Test must be an integer
+
+		Bool check:
+
+		>>> bg.integer_validator("Test", True)
+		Traceback (most recent call last):
+		TypeError: Test must be an integer
+
+		None check:
+
+		>>> bg.integer_validator("Test", None)
+		Traceback (most recent call last):
+		TypeError: Test must be an integer
+
+		Set check:
+
+		>>> bg.integer_validator("Test", {1, 3})
+		Traceback (most recent call last):
+		TypeError: Test must be an integer
