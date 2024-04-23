@@ -29,40 +29,34 @@ class Square(Rectangle):
         return f"[Square] ({self.id}) {self.x}/{self.y} - {self.width}"
 
     def update(self, *args, **kwargs):
-        """Updates square instance attributes"""
+        """Updates the rectangle instance attributes"""
         if not args and not kwargs:
-            raise TypeError("At least one argument is expected")
+            raise TypeError("at least one argument is expected")
 
-        if len(args) == 0:
-            if "id" in kwargs:
-                self.id = kwargs["id"]
-            if "size" in kwargs:
-                self.size = kwargs["size"]
-            if 'x' in kwargs:
-                self.x = kwargs['x']
-            if 'y' in kwargs:
-                self.y = kwargs['y']
+        if len(args) > 5:
+            raise TypeError("Too many arguments passed")
 
-        elif len(args) == 1:
-            self.id = args[0]
+        # Handling positional arguments
+        if args:
+            if args[0] is None:
+                raise TypeError("None is not a valid argument")
 
-        elif len(args) == 2:
-            self.id = args[0]
-            self.size = args[1]
+            attributes = ['id', 'size', 'x', 'y']
+            # Iterate over args and attributes simultaneously
+            for attr, value in zip(attributes, args):
+                setattr(self, attr, value)
 
-        elif len(args) == 3:
-            self.id = args[0]
-            self.size = args[1]
-            self.x = args[2]
-
-        elif len(args) == 4:
-            self.id = args[0]
-            self.size = args[1]
-            self.x = args[2]
-            self.y = args[3]
-
+        # Handling keyword arguments
         else:
-            raise TypeError("Too many arguments")
+            if not kwargs:
+                return
+
+            for key, value in kwargs.items():
+                # Check if the key is a valid attribute
+                if key in ('id', 'size', 'x', 'y'):
+                    setattr(self, key, value)
+                else:
+                    raise AttributeError(f"Attribute '{key}' is not valid")
 
     def to_dictionary(self):
         """Returns the dictionary representaion of a square instance

@@ -41,6 +41,9 @@ class Base:
             >>> print(json_dict2)
             []
         """
+        if list_dictionaries is None:
+            return "[]"
+
         return json.dumps(list_dictionaries)
 
     @classmethod
@@ -66,10 +69,10 @@ class Base:
     @staticmethod
     def from_json_string(json_string):
         """returns the list of the JSON string representation json_string"""
-        if json_string is None:
-            lst = []
-
         lst = []
+        if json_string is None:
+            return lst
+
         lst = json.loads(json_string)
 
         return lst
