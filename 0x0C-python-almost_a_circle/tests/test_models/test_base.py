@@ -33,5 +33,6 @@ class TestBase(unittest.TestCase):
         """Check error cases"""
         self.assertRaises(TypeError, Base, 1, 2,)
 
+
 if __name__ == "__main__":
     unittest.main()

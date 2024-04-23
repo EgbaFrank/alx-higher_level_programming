@@ -41,16 +41,65 @@ class Base:
             >>> print(json_dict2)
             []
         """
-        if list_dictionaries is None or len(list_dictionaries) == 0:
-            return "[]"
-
         return json.dumps(list_dictionaries)
 
     @classmethod
     def save_to_file(cls, list_objs):
         """writes the JSON string representation of list_objs to a file"""
+        if list_objs is None:
+            list_objs = []
+
+        objs_dict = []
+
+        # Validate base class inheritence
+
+        for obj in list_objs:
+            objs_dict.append(obj.to_dictionary())
+
+        json_str = Base.to_json_string(objs_dict)
+
         filename = f"{cls.__name__}.json"
 
         with open(filename, 'w', encoding="utf-8") as file:
-            json_list = [obj.to_dictionary for obj in list_objs]
-            file.write(cls.to_json_string(json_list))
+            file.write(json_str)
+
+    @staticmethod
+    def from_json_string(json_string):
+        """returns the list of the JSON string representation json_string"""
+        if json_string is None:
+            lst = []
+
+        lst = []
+        lst = json.loads(json_string)
+
+        return lst
+
+    @classmethod
+    def create(cls, **dictionary):
+        """returns an instance with all attributes already set"""
+        dummy = cls(1, 1)
+
+        dummy.update(**dictionary)
+
+        return dummy
+
+    @classmethod
+    def load_from_file(cls):
+        """returns a list of instances"""
+        filename = f"{cls.__name__}.json"
+
+        res = []
+
+        try:
+            with open(filename, encoding="utf-8") as file:
+                json_data = file.read()
+
+            if json_data:
+                objs = Base.from_json_string(json_data)
+
+                for obj in objs:
+                    res.append(cls.create(**obj))
+        except FileNotFoundError:
+            pass
+
+        return res

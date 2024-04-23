@@ -11,7 +11,14 @@ from models.rectangle import Rectangle
 
 class Testcase(unittest.TestCase):
     """Runs the test for the square class"""
-    # Add test for docstr
+    def test_docstr(self):
+        """Checks for docstring"""
+        mod_docstr_len = len(Square.__module__.__doc__)
+        cls_docstr_len = len(Square.__doc__)
+        func_docstr_len = len(Square.__init__.__doc__)
+        self.assertTrue(mod_docstr_len > 1)
+        self.assertTrue(cls_docstr_len > 1)
+        self.assertTrue(func_docstr_len > 1)
 
     def test_inheritence(self):
         """Test for inheritence and class type"""
@@ -53,6 +60,9 @@ class Testcase(unittest.TestCase):
         with self.assertRaises(ValueError):
             sq3 = Square(-7)
 
+        with self.assertRaises(ValueError):
+            sq3 = Square(0)
+
     def test_update_func(self):
         """Testcase for the update function"""
         sq = Square(5)
@@ -66,7 +76,7 @@ class Testcase(unittest.TestCase):
         self.assertEqual(sq.y, 5)
 
         # Checks for kwargs
-        sq.update(id = 15, size = 35, x = 4, y = 23)
+        sq.update(id=15, size=35, x=4, y=23)
         self.assertEqual(sq.id, 15)
         self.assertEqual(sq.size, 35)
         self.assertEqual(sq.x, 4)
@@ -94,6 +104,27 @@ class Testcase(unittest.TestCase):
         self.assertEqual(str(sq2), "[Square] (34) 2/2 - 5")
 
         doctest.run_docstring_examples(Square.to_dictionary, globals())
+
+    def test_load_from_file(self):
+        """Test cases for the load_from_file method"""
+        # Square class test
+        s1 = Square(5, 0, 0, 5)
+        s2 = Square(7, 9, 1, 6)
+        list_square_input = [s1, s2]
+
+        Square.save_to_file(list_square_input)
+
+        list_square_output = Square.load_from_file()
+
+        self.assertEqual(str(list_square_output[0]), '[Square] (5) 0/0 - 5')
+        self.assertEqual(str(list_square_output[1]), '[Square] (6) 9/1 - 7')
+        self.assertNotEqual(id(list_square_output[0]),
+                            id(list_square_output[1]))
+        self.assertNotEqual(id(list_square_input[0]),
+                            id(list_square_output[0]))
+        self.assertNotEqual(id(list_square_input[1]),
+                            id(list_square_output[1]))
+
 
 if __name__ == "__main__":
     unittest.main()

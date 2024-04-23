@@ -7,8 +7,17 @@ import unittest
 from models.base import Base
 from models.rectangle import Rectangle
 
+
 class Testcase(unittest.TestCase):
-    # Add a docstring test
+    """Test cases for the rectangle class"""
+    def test_docstr(self):
+        """Checks for docstring"""
+        mod_docstr_len = len(Rectangle.__module__.__doc__)
+        cls_docstr_len = len(Rectangle.__doc__)
+        func_docstr_len = len(Rectangle.__init__.__doc__)
+        self.assertTrue(mod_docstr_len > 1)
+        self.assertTrue(cls_docstr_len > 1)
+        self.assertTrue(func_docstr_len > 1)
 
     def test_inheritence(self):
         """Test for inheritence and class type"""
@@ -94,19 +103,26 @@ class Testcase(unittest.TestCase):
 
         rect1.update(75)
         self.assertEqual(rect1.id, 75)
+
         rect1.update(75, 5)
         self.assertEqual(rect1.width, 5)
+
         rect1.update(75, 5, 3)
         self.assertEqual(rect1.height, 3)
+
         rect1.update(75, 5, 3, 4)
         self.assertEqual(rect1.x, 4)
+
         rect1.update(75, 5, 3, 4, 2)
         self.assertEqual(rect1.y, 2)
-        rect1.update(id = 5)
+
+        rect1.update(id=5)
         self.assertEqual(rect1.id, 5)
-        rect1.update(width = 12)
+
+        rect1.update(width=12)
         self.assertEqual(rect1.width, 12)
-        rect1.update(x = 14, height = 15, y = 13)
+
+        rect1.update(x=14, height=15, y=13)
         self.assertEqual(rect1.height, 15)
         self.assertEqual(rect1.x, 14)
         self.assertEqual(rect1.y, 13)
@@ -117,6 +133,9 @@ class Testcase(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             rect1.update(1, 2, 3, 4, 5, 6)
+
+        with self.assertRaises(TypeError):
+            rect1.update(None)
 
     def test_to_dict(self):
         """Test cases for the to_dictionary method"""
@@ -150,9 +169,127 @@ class Testcase(unittest.TestCase):
 
     def test_save_to_json(self):
         """Test cases for the save_to_json method"""
-        r1 = Rectangle(10, 7, 2, 8)
+        Rectangle.save_to_file([])
+
+        # Check for None
+        with open("Rectangle.json") as file:
+            j_str = file.read()
+
+        self.assertEqual(j_str, '[]')
+
+        Rectangle.save_to_file(None)
+
+        # Check for empty list
+        with open("Rectangle.json") as file:
+            j_str = file.read()
+
+        self.assertEqual(j_str, '[]')
+
+        # Check for instance
+        r1 = Rectangle(10, 7, 2, 8, 19)
         r2 = Rectangle(2, 4)
+
+        r2.update(20)
+
         Rectangle.save_to_file([r1, r2])
+
+        with open("Rectangle.json") as file:
+            j_str = file.read()
+
+        self.assertEqual(j_str,
+                         ('[{"id": 19, "width": 10, '
+                          '"height": 7, "x": 2, "y": 8}, '
+                          '{"id": 20, "width": 2, '
+                          '"height": 4, "x": 0, "y": 0}]'))
+
+    def test_from_json_str(self):
+        """Test cases for the from_json_string method"""
+        # Setting up instances
+        rect4 = Rectangle(3, 4)
+        rect5 = Rectangle(5, 6)
+
+        rect4.update(1)
+        rect5.update(2)
+
+        rd4 = rect4.to_dictionary()
+        rd5 = rect5.to_dictionary()
+        input_str = Rectangle.to_json_string([rd4, rd5])
+        output_str = Rectangle.from_json_string(input_str)
+
+        # Validating output
+        self.assertEqual([rd4, rd5], [
+            {'id': 1, 'width': 3, 'height': 4, 'x': 0, 'y': 0},
+            {'id': 2, 'width': 5, 'height': 6, 'x': 0, 'y': 0}
+        ])
+
+        self.assertEqual(input_str,
+                         ('[{"id": 1, "width": 3, '
+                          '"height": 4, "x": 0, "y": 0}, '
+                          '{"id": 2, "width": 5, '
+                          '"height": 6, "x": 0, "y": 0}]'))
+
+        self.assertEqual(output_str, [
+            {'id': 1, 'width': 3, 'height': 4, 'x': 0, 'y': 0},
+            {'id': 2, 'width': 5, 'height': 6, 'x': 0, 'y': 0}
+        ])
+
+        self.assertIsInstance(input_str, str)
+        self.assertIsInstance(output_str, list)
+
+    def test_create(self):
+        """Test cases for the create method"""
+
+        # Checking error cases
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(3, 5, 1)
+            r1_dictionary = r1.to_dictionary()
+            r2 = Rectangle.create({})
+
+        with self.assertRaises(TypeError):
+            r1 = Rectangle(3, 5, 1)
+            r1_dictionary = r1.to_dictionary()
+            r2 = Rectangle.create(None)
+
+        # Rectangle create test
+        r1 = Rectangle(3, 5, 1)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Rectangle.create(**r1_dictionary)
+
+        self.assertFalse(r2 == r1)
+        self.assertFalse(r2 is r1)
+        self.assertEqual(str(r1), str(r2))
+
+        r3 = Rectangle(1, 2, 3, 4, 5)
+        r3_dictionary = r3.to_dictionary()
+        r2 = Rectangle.create(**r3_dictionary)
+
+        self.assertFalse(r2 == r3)
+        self.assertFalse(r2 is r3)
+        self.assertEqual(str(r2), str(r3))
+
+        # Square create test
+
+    def test_load_from_file(self):
+        """Test cases for the load_from_file method"""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        r2 = Rectangle(2, 4, 0, 0, 2)
+        list_rectangle_input = [r1, r2]
+
+        Rectangle.save_to_file(list_rectangle_input)
+
+        list_rectangle_output = Rectangle.load_from_file()
+
+        self.assertEqual(str(list_rectangle_output[0]),
+                         '[Rectangle] (1) 2/8 - 10/7')
+        self.assertEqual(str(list_rectangle_output[1]),
+                         '[Rectangle] (2) 0/0 - 2/4')
+        self.assertNotEqual(id(list_rectangle_output[0]),
+                            id(list_rectangle_output[1]))
+        self.assertNotEqual(id(list_rectangle_input[0]),
+                            id(list_rectangle_output[0]))
+        self.assertNotEqual(id(list_rectangle_input[1]),
+                            id(list_rectangle_output[1]))
+
 
 if __name__ == "__main__":
     unittest.main()

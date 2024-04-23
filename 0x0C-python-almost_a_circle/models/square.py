@@ -4,6 +4,7 @@ Contains a Square class
 """
 from models.rectangle import Rectangle
 
+
 class Square(Rectangle):
     """
     A square class that inherits from a rectangle class
@@ -29,7 +30,7 @@ class Square(Rectangle):
 
     def update(self, *args, **kwargs):
         """Updates square instance attributes"""
-        if len(args) == 0 and len(kwargs) == 0:
+        if not args and not kwargs:
             raise TypeError("At least one argument is expected")
 
         if len(args) == 0:
@@ -65,7 +66,7 @@ class Square(Rectangle):
 
     def to_dictionary(self):
         """Returns the dictionary representaion of a square instance
-        
+
         Example:
             >>> sq = Square(5, 0, 0, 1)
             >>> sq2 = Square(1, 0, 0, 2)

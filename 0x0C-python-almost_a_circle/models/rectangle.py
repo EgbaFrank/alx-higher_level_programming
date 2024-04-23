@@ -4,6 +4,7 @@ Contains a rectngle model class
 """
 from models.base import Base
 
+
 class Rectangle(Base):
     """A rectangle class"""
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -24,7 +25,7 @@ class Rectangle(Base):
         """Sets the width of the rectangle instance"""
         if type(width) is not int:
             raise TypeError("width must be an integer")
-        if width < 0:
+        if width <= 0:
             raise ValueError("width must be > 0")
         self.__width = width
 
@@ -38,7 +39,7 @@ class Rectangle(Base):
         """Sets the height of the rectangle instance"""
         if type(height) is not int:
             raise TypeError("height must be an integer")
-        if height < 0:
+        if height <= 0:
             raise ValueError("height must be > 0")
         self.__height = height
 
@@ -89,10 +90,10 @@ class Rectangle(Base):
             ###
             ###
 
-            >>> rect.width = 0
-            >>> rect.height = 0
+            >>> rect.width = 1
+            >>> rect.height = 1
             >>> rect.display()
-            <BLANKLINE>
+            #
 
             >>> rect1 = Rectangle(3, 4, 3, 2)
             >>> rect1.display()
@@ -107,59 +108,44 @@ class Rectangle(Base):
         for _ in range(self.__y):
             print()
 
-        if self.__width != 0 or self.__height != 0:
-           for i in range(self.__height):
-               res.append(' '*self.__x + '#'*self.__width)
+        for i in range(self.__height):
+            res.append(' '*self.__x + '#'*self.__width)
         print('\n'.join(res))
 
     def __str__(self):
         """Overrides default print"""
-        return f"[Rectangle] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}"
+        return (f"[Rectangle] ({self.id}) {self.x}/"
+                f"{self.y} - {self.width}/{self.height}")
 
     def update(self, *args, **kwargs):
         """Updates the rectangle instance attributes"""
-        if len(args) == 0 and len(kwargs) == 0:
-            raise TypeError("At least one argument is expected")
+        if not args and not kwargs:
+            raise TypeError("at least one argument is expected")
 
-        if len(args) == 0:
-            if "id" in kwargs:
-                self.id = kwargs["id"]
-            if "width" in kwargs:
-                self.width = kwargs["width"]
-            if "height" in kwargs:
-                self.height = kwargs["height"]
-            if 'x' in kwargs:
-                self.x = kwargs['x']
-            if 'y' in kwargs:
-                self.y = kwargs['y']
-
-        elif len(args) == 1:
-            self.id = args[0]
-
-        elif len(args) == 2:
-            self.id = args[0]
-            self.width = args[1]
-
-        elif len(args) == 3:
-            self.id = args[0]
-            self.width = args[1]
-            self.height = args[2]
-
-        elif len(args) == 4:
-            self.id = args[0]
-            self.width = args[1]
-            self.height = args[2]
-            self.x = args[3]
-
-        elif len(args) == 5:
-            self.id = args[0]
-            self.width = args[1]
-            self.height = args[2]
-            self.x = args[3]
-            self.y = args[4]
-
-        else:
+        if len(args) > 5:
             raise TypeError("Too many arguments passed")
+
+        # Handling positional arguments
+        if args:
+            if args[0] is None:
+                raise TypeError("None is not a valid argument")
+
+            attributes = ['id', 'width', 'height', 'x', 'y']
+            # Iterate over args and attributes simultaneously
+            for attr, value in zip(attributes, args):
+                setattr(self, attr, value)
+
+        # Handling keyword arguments
+        else:
+            if not kwargs:
+                return
+
+            for key, value in kwargs.items():
+                # Check if the key is a valid attribute
+                if key in ('id', 'width', 'height', 'x', 'y'):
+                    setattr(self, key, value)
+                else:
+                    raise AttributeError(f"Attribute '{key}' is not valid")
 
     def to_dictionary(self):
         """Returns the dictionary representation
