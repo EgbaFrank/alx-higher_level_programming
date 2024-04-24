@@ -41,7 +41,7 @@ class Base:
             >>> print(json_dict2)
             []
         """
-        if list_dictionaries is None:
+        if list_dictionaries is None or list_dictionaries == []:
             return "[]"
 
         return json.dumps(list_dictionaries)
@@ -80,7 +80,11 @@ class Base:
     @classmethod
     def create(cls, **dictionary):
         """returns an instance with all attributes already set"""
-        dummy = cls(1, 1)
+        if cls.__name__ == "Rectangle":
+            dummy = cls(1, 1)
+
+        else:
+            dummy = cls(1)
 
         dummy.update(**dictionary)
 
