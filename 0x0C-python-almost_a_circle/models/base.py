@@ -23,24 +23,8 @@ class Base:
     def to_json_string(list_dictionaries):
         """
         returns the JSON string representation of list_dictionaries
-
-        Example:
-            >>> r1 = Rectangle(10, 7, 2, 8, 1)
-            >>> dictionary = r1.to_dictionary()
-            >>> dictionary = dict(sorted(dictionary.items()))
-            >>> json_dictionary = Base.to_json_string([dictionary])
-            >>> print(dictionary)
-            {'height': 7, 'id': 1, 'width': 10, 'x': 2, 'y': 8}
-            >>> print(type(dictionary))
-            <class 'dict'>
-            >>> print(json_dictionary)
-            [{"height": 7, "id": 1, "width": 10, "x": 2, "y": 8}]
-            >>> print(type(json_dictionary))
-            <class 'str'>
-            >>> json_dict2 = Base.to_json_string([])
-            >>> print(json_dict2)
-            []
         """
+
         if list_dictionaries is None or list_dictionaries == []:
             return "[]"
 
