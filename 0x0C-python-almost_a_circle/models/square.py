@@ -59,26 +59,10 @@ class Square(Rectangle):
                     raise AttributeError(f"Attribute '{key}' is not valid")
 
     def to_dictionary(self):
-        """Returns the dictionary representaion of a square instance
-
-        Example:
-            >>> sq = Square(5, 0, 0, 1)
-            >>> sq2 = Square(1, 0, 0, 2)
-            >>> print(sq)
-            [Square] (1) 0/0 - 5
-            >>> print(sq2)
-            [Square] (2) 0/0 - 1
-            >>> sq_dict = sq.to_dictionary()
-            >>> print(dict(sorted(sq_dict.items())))
-            {'id': 1, 'size': 5, 'x': 0, 'y': 0}
-            >>> sq2.update(**sq_dict)
-            >>> sq2 == sq
-            False
-        """
-        res = {}
-        res["id"] = self.id
-        res["size"] = self.size
-        res['x'] = self.x
-        res['y'] = self.y
-
-        return res
+        """Returns the dictionary representaion of a square instance"""
+        return {
+            "id": self.id,
+            "size": self.size,
+            "x": self.x,
+            "y": self.y
+        }

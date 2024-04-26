@@ -148,27 +148,11 @@ class Rectangle(Base):
                     raise AttributeError(f"Attribute '{key}' is not valid")
 
     def to_dictionary(self):
-        """Returns the dictionary representation
-
-        Example:
-            >>> rect = Rectangle(5, 3, 0, 0, 1)
-            >>> rect2 = Rectangle(1, 1, 0, 0, 2)
-            >>> print(rect)
-            [Rectangle] (1) 0/0 - 5/3
-            >>> print(rect2)
-            [Rectangle] (2) 0/0 - 1/1
-            >>> rect_dict = rect.to_dictionary()
-            >>> print(dict(sorted(rect_dict.items())))
-            {'height': 3, 'id': 1, 'width': 5, 'x': 0, 'y': 0}
-            >>> rect2.update(**rect_dict)
-            >>> rect2 == rect
-            False
-        """
-        res = {}
-        res["id"] = self.id
-        res["width"] = self.width
-        res["height"] = self.height
-        res['x'] = self.x
-        res['y'] = self.y
-
-        return res
+        """Returns the dictionary representation"""
+        return {
+            "id": self.id,
+            "width": self.width,
+            "height": self.height,
+            "x": self.x,
+            "y": self.y
+        }
