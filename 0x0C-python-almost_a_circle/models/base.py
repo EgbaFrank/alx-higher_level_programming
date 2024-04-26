@@ -5,6 +5,7 @@ This module contains the base class
 import csv
 import json
 
+
 class Base:
     """Base model class"""
     __nb_objects = 0
@@ -99,16 +100,15 @@ class Base:
         """writes the csv string representation of list_objs to a file"""
         filename = f"{cls.__name__}.csv"
 
-
         with open(filename, "w", encoding="utf-8", newline='') as file:
             if list_objs is None:
                 file.write("[]")
 
             else:
                 if cls.__name__ == "Rectangle":
-                    fieldnames= ['id', 'width', 'height', 'x', 'y']
+                    fieldnames = ['id', 'width', 'height', 'x', 'y']
                 else:
-                    fieldnames= ['id', 'size', 'x', 'y']
+                    fieldnames = ['id', 'size', 'x', 'y']
 
                 csvwrite = csv.DictWriter(file, fieldnames=fieldnames)
                 csvwrite.writeheader()
