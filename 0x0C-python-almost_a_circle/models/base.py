@@ -2,8 +2,8 @@
 """
 This module contains the base class
 """
+import csv
 import json
-
 
 class Base:
     """Base model class"""
@@ -24,7 +24,6 @@ class Base:
         """
         returns the JSON string representation of list_dictionaries
         """
-
         if list_dictionaries is None or list_dictionaries == []:
             return "[]"
 
@@ -94,3 +93,46 @@ class Base:
             pass
 
         return res
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """writes the csv string representation of list_objs to a file"""
+        filename = f"{cls.__name__}.csv"
+
+
+        with open(filename, "w", encoding="utf-8", newline='') as file:
+            if list_objs is None:
+                file.write("[]")
+
+            else:
+                if cls.__name__ == "Rectangle":
+                    fieldnames= ['id', 'width', 'height', 'x', 'y']
+                else:
+                    fieldnames= ['id', 'size', 'x', 'y']
+
+                csvwrite = csv.DictWriter(file, fieldnames=fieldnames)
+                csvwrite.writeheader()
+
+                for obj in list_objs:
+                    csvwrite.writerow(obj.to_dictionary())
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """reads from a csv file and creates a list of instances"""
+        filename = f"{cls.__name__}.csv"
+
+        objs_list = []
+
+        try:
+            with open(filename, encoding="utf-8", newline='') as file:
+                csv_reader = csv.DictReader(file)
+
+                for row in csv_reader:
+                    # Convert value to integers
+                    row = {k: int(v) for k, v in row.items()}
+                    objs_list.append(cls.create(**row))
+
+        except FileNotFoundError:
+            pass
+
+        return objs_list
