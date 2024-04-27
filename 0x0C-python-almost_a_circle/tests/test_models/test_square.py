@@ -57,8 +57,20 @@ class Testcase(unittest.TestCase):
         with self.assertRaises(TypeError):
             sq3 = Square('t')
 
+        with self.assertRaises(TypeError):
+            sq3 = Square(2, 't')
+
+        with self.assertRaises(TypeError):
+            sq3 = Square(3, 4, 't')
+
         with self.assertRaises(ValueError):
             sq3 = Square(-7)
+
+        with self.assertRaises(ValueError):
+            sq3 = Square(3, -7)
+
+        with self.assertRaises(ValueError):
+            sq3 = Square(3, 6, -7)
 
         with self.assertRaises(ValueError):
             sq3 = Square(0)
@@ -104,6 +116,46 @@ class Testcase(unittest.TestCase):
         self.assertEqual(str(sq2), "[Square] (34) 2/2 - 5")
 
         doctest.run_docstring_examples(Square.to_dictionary, globals())
+
+    def test_save_to_json(self):
+        """Test cases for the save_to_json method"""
+        Square.save_to_file([])
+
+        with open("Square.json") as file:
+            j_str = file.read()
+
+        self.assertEqual(j_str, '[]')
+
+        # Check for None
+        Square.save_to_file(None)
+
+        with open("Square.json") as file:
+            j_str = file.read()
+
+        self.assertEqual(j_str, '[]')
+
+        # Check for empty list
+        with open("Square.json") as file:
+            j_str = file.read()
+
+        self.assertEqual(j_str, '[]')
+
+        # Check for instance
+        sq1 = Square(10, 2, 8, 19)
+        sq2 = Square(2, 4)
+
+        sq2.update(20)
+
+        Square.save_to_file([sq1, sq2])
+
+        with open("Square.json") as file:
+            j_str = file.read()
+
+        self.assertEqual(j_str,
+                         ('[{"id": 19, "size": 10, '
+                          '"x": 2, "y": 8}, '
+                          '{"id": 20, "size": 2, '
+                          '"x": 4, "y": 0}]'))
 
     def test_load_from_file(self):
         """Test cases for the load_from_file method"""

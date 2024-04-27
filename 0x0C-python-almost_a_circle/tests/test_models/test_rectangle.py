@@ -67,6 +67,10 @@ class Testcase(unittest.TestCase):
 
         """Check negatives"""
         with self.assertRaises(ValueError):
+            rect2 = Rectangle(0, 8)
+        with self.assertRaises(ValueError):
+            rect2 = Rectangle(4, 0)
+        with self.assertRaises(ValueError):
             rect2 = Rectangle(-3, 6)
         with self.assertRaises(ValueError):
             rect2 = Rectangle(2, -9)
@@ -89,6 +93,11 @@ class Testcase(unittest.TestCase):
 
     def test_display(self):
         """Test the rectangle print out via doctest"""
+        rect3 = Rectangle(5, 6)
+
+        with self.assertRaises(TypeError):
+            rect3.display("Test")
+
         doctest.run_docstring_examples(Rectangle.display, globals())
 
     def test_print(self):
@@ -171,13 +180,18 @@ class Testcase(unittest.TestCase):
         """Test cases for the save_to_json method"""
         Rectangle.save_to_file([])
 
-        # Check for None
         with open("Rectangle.json") as file:
             j_str = file.read()
 
         self.assertEqual(j_str, '[]')
 
+        # Check for None
         Rectangle.save_to_file(None)
+
+        with open("Rectangle.json") as file:
+            j_str = file.read()
+
+        self.assertEqual(j_str, '[]')
 
         # Check for empty list
         with open("Rectangle.json") as file:
@@ -289,6 +303,32 @@ class Testcase(unittest.TestCase):
                             id(list_rectangle_output[0]))
         self.assertNotEqual(id(list_rectangle_input[1]),
                             id(list_rectangle_output[1]))
+
+    def test_save_to_csv(self):
+        """Test cases for the save_to_csv method"""
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        list_rectangles_input = [r1, r2]
+
+
+        Rectangle.save_to_file_csv(list_rectangles_input)
+
+        # Add None test
+        Rectangle.save_to_file_csv(None)
+        # Add read test
+
+    def test_load_from_file_csv(self):
+        """Test cases for the load from file csv method"""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        r2 = Rectangle(2, 4, 0, 0, 2)
+        list_rectangles_input = [r1, r2]
+
+
+        Rectangle.save_to_file_csv(list_rectangles_input)
+        list_rectangle_output = Rectangle.load_from_file_csv()
+
+        self.assertEqual(str(list_rectangle_output[0]), "[Rectangle] (1) 2/8 - 10/7")
+        self.assertEqual(str(list_rectangle_output[1]), "[Rectangle] (2) 0/0 - 2/4")
 
 
 if __name__ == "__main__":
