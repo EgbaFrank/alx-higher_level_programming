@@ -176,7 +176,7 @@ class Testcase(unittest.TestCase):
 
         doctest.run_docstring_examples(Rectangle.to_json_string, globals())
 
-    def test_save_to_json(self):
+    def test_save_to_file(self):
         """Test cases for the save_to_json method"""
         Rectangle.save_to_file([])
 
