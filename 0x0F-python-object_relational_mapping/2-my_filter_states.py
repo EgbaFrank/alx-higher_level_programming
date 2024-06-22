@@ -17,10 +17,10 @@ if __name__ == "__main__":
         )
         cur = db.cursor()
 
-        cur.execute(f"SELECT *\
+        cur.execute("SELECT *\
                      FROM states\
-                     WHERE name = '{sys.argv[4]}'\
-                     ORDER BY id ASC")
+                     WHERE name = '{}'\
+                     ORDER BY id ASC".format(sys.argv[4]))
         states = cur.fetchall()
 
         for row in states:
