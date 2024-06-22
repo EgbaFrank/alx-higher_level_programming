@@ -26,6 +26,6 @@ if __name__ == "__main__":
     if instance:
         print(f"{instance.id}: {instance.name}")
     else:
-        print()
+        print("Nothing")
 
     session.close()
