@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     cur.execute("SELECT *\
                  FROM states\
-                 WHERE name LIKE BINARY '{}'\
+                 WHERE name = '{}'\
                  ORDER BY id ASC".format(sys.argv[4]))
     states = cur.fetchall()
 
