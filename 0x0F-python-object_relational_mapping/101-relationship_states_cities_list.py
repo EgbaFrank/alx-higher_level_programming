@@ -3,12 +3,12 @@
 Creates the State “California”
 with the City “San Francisco”
 """
-
 import sys
 from relationship_city import City
 from relationship_state import Base, State
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, joinedload
+
 
 if __name__ == "__main__":
     # Usage check
@@ -26,17 +26,22 @@ if __name__ == "__main__":
                     sys.argv[2],
                     sys.argv[3]
                     ),
-            pool_pre_ping=True
+            pool_pre_ping=True,
+            echo=True
             )
 
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    instances = session.query(State).outerjoin(State.cities).order_by(State.id, City.id).all()
+    instances = (
+            session.query(State)
+            .options(joinedload(State.cities))
+            .order_by(State.id).all()
+            )
 
-    for state in instances: #session.query(State).order_by(State.id):
+    for state in instances:
         print(f"{state.id}: {state.name}")
         for inst in state.cities:
-            print(f"    {inst.id}: {inst.name}")
+            print(f"\t{inst.id}: {inst.name}")
 
     session.close()
