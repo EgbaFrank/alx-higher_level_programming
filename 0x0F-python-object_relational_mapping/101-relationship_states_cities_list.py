@@ -37,6 +37,6 @@ if __name__ == "__main__":
     for state in instances:
         print(f"{state.id}: {state.name}")
         for city in state.cities:
-            print(f"\t{city.id}: {city.name}")
+            print(f"    {city.id}: {city.name}")
 
     session.close()
