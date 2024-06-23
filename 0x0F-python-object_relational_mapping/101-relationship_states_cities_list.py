@@ -32,7 +32,9 @@ if __name__ == "__main__":
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    for state in session.query(State).order_by(State.id):
+    instances = session.query(State).outerjoin(State.cities).order_by(State.id, City.id).all()
+
+    for state in instances: #session.query(State).order_by(State.id):
         print(f"{state.id}: {state.name}")
         for inst in state.cities:
             print(f"    {inst.id}: {inst.name}")
