@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     for state in session.query(State).order_by(State.id):
         print(f"{state.id}: {state.name}")
-        for city in state.cities:
-            print(f"    {city.id}: {city.name}")
+        for inst in state.cities:
+            print(f"    {inst.id}: {inst.name}")
 
     session.close()
