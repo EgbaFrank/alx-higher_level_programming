@@ -4,9 +4,9 @@ Lists all State objects,
 and corresponding City objects
 """
 import sys
-from relationship_city import City
-from relationship_state import State
 from sqlalchemy import create_engine
+from relationship_city import City
+from relationship_state import Base, State
 from sqlalchemy.orm import sessionmaker
 
 
@@ -21,6 +21,7 @@ if __name__ == "__main__":
                     ),
             pool_pre_ping=True
             )
+    Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     session = Session()
 
