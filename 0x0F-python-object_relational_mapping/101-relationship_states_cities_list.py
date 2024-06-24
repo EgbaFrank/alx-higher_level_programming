@@ -21,14 +21,10 @@ if __name__ == "__main__":
                     ),
             pool_pre_ping=True
             )
-    Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    instances = (
-            session.query(State)
-            .outerjoin(City).all()
-            )
+    instances = session.query(State)
 
     if instances:
         for state in instances:
