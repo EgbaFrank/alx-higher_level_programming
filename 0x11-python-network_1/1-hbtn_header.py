@@ -7,10 +7,10 @@ from a specified URL
 
 if __name__ == "__main__":
     import sys
-    from urllib.request import urlopen
+    from urllib
 
     url = sys.argv[1]
 
-    with urlopen(url) as response:
+    with urllib.request.urlopen(url) as response:
         http = response.info()
         print(http.get('X-Request-Id'))
