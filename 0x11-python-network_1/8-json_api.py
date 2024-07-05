@@ -24,7 +24,7 @@ if __name__ == "__main__":
             print("No result")
 
         else:
-            print(f"[{info.get('id')}]: {info.get('name')}")
+            print(f"[{info.get('id')}] {info.get('name')}")
 
     except requests.exceptions.JSONDecodeError:
         print("Not a valid JSON")
