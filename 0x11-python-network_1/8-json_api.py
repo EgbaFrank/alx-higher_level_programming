@@ -8,7 +8,7 @@ if __name__ == "__main__":
     import sys
     import requests
 
-    if len(argv) > 1:
+    if len(sys.argv) > 1:
         search_query = sys.argv[1]
     else:
         search_query = ""
