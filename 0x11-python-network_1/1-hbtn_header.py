@@ -4,13 +4,12 @@ Displays the value of the X-Request-Id variable
 from a specified URL
 """
 
+import sys
+from urllib
 
 if __name__ == "__main__":
-    import sys
-    from urllib
 
     url = sys.argv[1]
 
     with urllib.request.urlopen(url) as response:
-        http = response.info()
-        print(http.get('X-Request-Id'))
+        print(response.headers().get('X-Request-Id'))
