@@ -5,7 +5,7 @@ from a specified URL
 """
 
 import sys
-from urllib
+import urllib
 
 if __name__ == "__main__":
 
