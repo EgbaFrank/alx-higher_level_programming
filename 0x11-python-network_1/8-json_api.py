@@ -15,9 +15,10 @@ if __name__ == "__main__":
     parameter = {'q': search_query}
     url = 'http://0.0.0.0:5000/search_user'
 
-    response = requests.post(url, data=parameter)
 
     try:
+        response = requests.post(url, data=parameter)
+
         info = response.json()
 
         if not info:
