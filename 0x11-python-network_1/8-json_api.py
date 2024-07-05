@@ -8,11 +8,14 @@ if __name__ == "__main__":
     import sys
     import requests
 
-    search_query = sys.argv[1]
+    if len(argv) > 1:
+        search_query = sys.argv[1]
+    else:
+        search_query = ""
     parameter = {'q': search_query}
     url = 'http://0.0.0.0:5000/search_user'
 
-    response = requests.get(url, params=parameter)
+    response = requests.post(url, data=parameter)
 
     try:
         if not response.text.strip():
