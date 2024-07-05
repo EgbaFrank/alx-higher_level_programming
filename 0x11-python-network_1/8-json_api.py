@@ -18,11 +18,12 @@ if __name__ == "__main__":
     response = requests.post(url, data=parameter)
 
     try:
-        if not response.text.strip():
+        info = response.json()
+
+        if not info:
             print("No result")
 
         else:
-            info = response.json()
             print(f"[{info.get('id')}]: {info.get('name')}")
 
     except requests.exceptions.JSONDecodeError:
