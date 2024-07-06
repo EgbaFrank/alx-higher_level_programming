@@ -14,6 +14,7 @@ if __name__ == "__main__":
 
     try:
         response = requests.get(url, params={'per_page': 10})
+        response.raise_for_status()
         commits = response.json()
 
         for commit in commits:
