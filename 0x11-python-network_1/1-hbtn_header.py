@@ -8,7 +8,5 @@ from urllib.request import urlopen
 
 
 if __name__ == "__main__":
-    url = sys.argv[1]
-
-    with urlopen(url) as response:
+    with urlopen(sys.argv[1]) as response:
         print(dict(response.headers).get('X-Request-Id'))
