@@ -3,9 +3,13 @@
 Displays the value of the X-Request-Id variable
 from a specified URL
 """
-from urllib.request import urlopen
+import sys
+from urllib.request import urlopen, Request
 
 
 if __name__ == "__main__":
-    with urlopen(sys.argv[1]) as response:
-        #print(dict(response.headers).get('X-Request-Id'))
+    url = sys.argv[1]
+
+    request = Request(url)
+    with urlopen(request) as response:
+        print(dict(response.headers).get('X-Request-Id'))
