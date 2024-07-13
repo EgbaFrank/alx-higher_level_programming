@@ -3,7 +3,6 @@
 Displays the value of the X-Request-Id variable
 from a specified URL
 """
-import sys
 from urllib.request import urlopen
 
 
