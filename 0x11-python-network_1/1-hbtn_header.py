@@ -4,9 +4,9 @@ Displays the value of the X-Request-Id variable
 from a specified URL
 """
 import sys
-from urllib.request import urlopen
+import urllib.request
 
 
 if __name__ == "__main__":
-    with urlopen(sys.argv[1]) as response:
+    with urllib.request.urlopen(sys.argv[1]) as response:
         print(dict(response.headers).get('X-Request-Id'))
