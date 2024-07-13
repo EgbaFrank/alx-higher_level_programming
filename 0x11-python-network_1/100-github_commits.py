@@ -13,8 +13,8 @@ if __name__ == "__main__":
         print(f"Usage: {sys.argv[0]} [OWNER] [REPO]")
         sys.exit(1)
 
-    OWNER = sys.argv[1]
-    REPO = sys.argv[2]
+    REPO = sys.argv[1]
+    OWNER = sys.argv[2]
     url = "https://api.github.com/repos/{}/{}/commits".format(OWNER, REPO)
 
     try:
