@@ -9,4 +9,4 @@ from urllib.request import urlopen
 
 if __name__ == "__main__":
     with urlopen(sys.argv[1]) as response:
-        print(dict(response.headers).get('X-Request-Id'))
+        print(response.info().get('X-Request-Id'))
