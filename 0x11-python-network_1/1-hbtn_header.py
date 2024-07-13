@@ -4,7 +4,7 @@ Displays the value of the X-Request-Id variable
 from a specified URL
 """
 import sys
-import urllib.request
+import urllib
 
 
 if __name__ == "__main__":
