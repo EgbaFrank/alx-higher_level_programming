@@ -9,13 +9,17 @@ request(url, (error, response, body) => {
     console.error(error);
     return;
   }
-  const films = JSON.parse(body).results;
+  try {
+    const films = JSON.parse(body).results;
 
-  let count = 0;
-  for (const film of films) {
-    if (film.characters.includes(characterUrl)) {
-      count++;
+    let count = 0;
+    for (const film of films) {
+      if (film.characters.includes(characterUrl)) {
+        count++;
+      }
     }
+    console.log(count);
+  } catch (err) {
+    console.error(err);
   }
-  console.log(count);
 });
